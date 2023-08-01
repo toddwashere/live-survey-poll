@@ -10,10 +10,9 @@ export const Results = () => {
     const [thingsInTheWay, setThingsInTheWay] = useState<SurveyEntry[]>([])
 
     useEffect(() => {
-        getResults().then((entries) => {
-            setThingsInTheWay(entries)
-            setIsLoading(false)
-        })
+
+        getResults()
+
     }, [])
     console.log("thingsInTheWay", thingsInTheWay)
 
@@ -26,10 +25,10 @@ export const Results = () => {
         console.log("GOT response: ", response)
         const entries = JSON.parse(await response.text()) as SurveyEntry[]
         console.log("entries", entries)
+        setThingsInTheWay(entries)
         setIsLoading(false)
-        return entries
 
-    }, [])
+    }, [setThingsInTheWay, setIsLoading])
 
 
     return (
