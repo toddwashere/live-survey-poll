@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3333",
     "build": "next build",
+    "deploy": "yarn build && yarn db-gen && yarn db-push",
     "start": "next start",
     "lint": "next lint",
     "db-gen": "yarn prisma generate",
