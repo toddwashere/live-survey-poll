@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    processPost(req, res)
+    return processPost(req, res)
 }
 
 
@@ -19,5 +19,5 @@ const processPost = async (req: NextApiRequest, res: NextApiResponse) => {
         },
     })
 
-    res.status(200).json(results)
+    return res.status(200).json(results)
 }
