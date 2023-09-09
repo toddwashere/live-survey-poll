@@ -1,3 +1,4 @@
+import { Clock } from "@/app/copmonents/Clock";
 import { css } from "@emotion/css";
 
 
@@ -36,17 +37,17 @@ const PresenterSideBar = ({
                     utahjs.vercel.app
                 </div>
                 <div className={css`
-            border: 1px solid black;
-            max-width: 200px;
-            max-height: 200px;
-            background-color: #FFF;
-            color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 20px;
-            padding: 20px;
-          `}>
+                    border: 1px solid black;
+                    max-width: 200px;
+                    max-height: 200px;
+                    background-color: #FFF;
+                    color: #000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 20px;
+                    padding: 20px;
+                `}>
                     <img src="/images/qrcode.png"
                         className={css`
                 width: 100%;
@@ -58,37 +59,24 @@ const PresenterSideBar = ({
             </div>
 
             <div className={css`
-              width: 100%;
+                width: 100%;
             `}>
-
-                {/* Question 1 results */}
-                <div>
-                    <p>Put question 1 results here</p>
-
-                </div>
-
-                {/* Question 2 results */}
-                <div>
-                    <p>Put question 2 results here</p>
-
-                </div>
-
 
                 {/* Home tab */}
                 <div className={css`
-              width: 100%;
-              display: flex;
-              justify-content: center;
-            `}>
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                `}>
 
                     <div className={css`
-                width: 200px;
-                opacity: 0.5;
-              `}>
+                        width: 200px;
+                        opacity: 0.5;
+                    `}>
                         <img src="/images/utahjs_400x400.png"
                             className={css`
-                  width: 100%;
-                `} />
+                                width: 100%;
+                            `} />
                     </div>
 
                 </div>
@@ -97,36 +85,41 @@ const PresenterSideBar = ({
             {/* Bottom Footer */}
 
             <div className={css`
-          height: 36px;
-          width: 100%;
-          background-color: rgba(241, 243, 244, 0.949);
-          display: flex;
-          justify-content: end;
-          align-items: center;
-          color: #444;
-        `}>
-                <span className={css`
-            padding-right: 10px;
-          `}>
-                    <button
-                        onClick={() => setCurrentView("presentation")}
-                    >
-                        Home
-                    </button>
+                height: 36px;
+                width: calc(100% - 10px);
+                background-color: rgba(241, 243, 244, 0.949);
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                gap: 5px;
+                padding-right: 10px;
+                color: #444;
+                & > button {
+                    border: 1px solid #444;
+                    border-width: 4px 1px;
+                    border-radius: 2px;
+                }
+            `}>
+                <Clock />
+                <button
+                    onClick={() => setCurrentView("presentation")}
+                >
+                    Home
+                </button>
 
-                    <button
-                        onClick={() => setCurrentView("results1")}
-                    >
-                        Question 1
-                    </button>
+                <button
+                    onClick={() => setCurrentView("results1")}
+                >
+                    Q1
+                </button>
 
-                    <button
-                        onClick={() => setCurrentView("results2")}
-                    >
-                        Question 2
-                    </button>
+                <button
+                    onClick={() => setCurrentView("results2")}
+                >
+                    Q2
+                </button>
 
-                </span>
+
             </div>
         </div>
     )
