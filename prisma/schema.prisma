@@ -15,3 +15,9 @@ model ThingsInTheWay {
   name      String
   createdAt DateTime @default(now())
 }
+
+model ThingsThatHelp {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+}

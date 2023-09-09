@@ -24,12 +24,12 @@ export const removeInappropriatePhrases = async (rawStrings: string[]) => {
 }
 
 
-export const groupSimilarPhrases = async (rawStrings: string[]) => {
+export const groupSimilarPhrases = async (questionAsked: string, rawStrings: string[]) => {
 
     const client = getOpenAiClient()
 
     const prompt = `I asked a group of people the following question:
-    As software engineers / developers, what things get in the way of us doing our jobs?
+    As software engineers / developers, ${questionAsked}
 
     I got the following responses:
 \n\n${rawStrings.join("\n")}\n\n---\n\n

@@ -1,8 +1,8 @@
 
 "use client"
 import { useCallback, useEffect, useState } from "react"
-import { SurveyEntry } from "./SurveyEntry"
 import { css } from "@emotion/css"
+import { SurveyQuestion } from "./Questions"
 
 
 type GroupedEntry = {
@@ -10,24 +10,31 @@ type GroupedEntry = {
     v: string[],
 }
 
-export const Results = () => {
+type Props = {
+    question: SurveyQuestion
+}
+
+export const Results = ({
+    question,
+}: Props) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [thingsInTheWay, setThingsInTheWay] = useState<string[]>([])
-    const [thingsInTheWayGrouped, setThingsInTheWayGrouped] = useState<GroupedEntry[]>([])
+    const [responses, setResponses] = useState<string[]>([])
+    const [isGrouping, setIsGrouping] = useState<boolean>(false)
+    const [responsesGrouped, setResponsesGrouped] = useState<GroupedEntry[]>([])
 
     useEffect(() => {
 
-        getThingsInTheWay()
+        getResponses()
 
     }, [])
-    console.log("thingsInTheWay = ", { thingsInTheWay })
+    console.log("thingsInTheWay = ", { thingsInTheWay: responses })
 
-    const getThingsInTheWay = useCallback(async () => {
+    const getResponses = useCallback(async () => {
         setIsLoading(true)
         try {
 
-            const response = await fetch("/api/SurveyResults", {
+            const response = await fetch(`/api/SurveyResults?q=${question.id}`, {
                 method: "GET"
             })
 
@@ -35,19 +42,19 @@ export const Results = () => {
             const entries = JSON.parse(rawEntries) as string[]
             console.log("entries", { entries })
 
-            setThingsInTheWay(entries)
+            setResponses(entries)
         } catch (e) {
             console.error("error = ", e)
         }
         setIsLoading(false)
 
-    }, [setThingsInTheWay, setIsLoading])
+    }, [setResponses, setIsLoading])
 
-    const getThingsInTheWayGrouped = useCallback(async () => {
-        setIsLoading(true)
+    const getResponsesGrouped = useCallback(async () => {
+        setIsGrouping(true)
         try {
 
-            const response = await fetch("/api/SurveyResultsGrouped", {
+            const response = await fetch(`/api/SurveyResultsGrouped?q=${question.id}`, {
                 method: "GET"
             })
 
@@ -55,13 +62,13 @@ export const Results = () => {
             const entries = JSON.parse(rawEntries) as GroupedEntry[]
             console.log("entries", { entries })
 
-            setThingsInTheWayGrouped(entries)
+            setResponsesGrouped(entries)
         } catch (e) {
             console.error("error = ", e)
         }
-        setIsLoading(false)
+        setIsGrouping(false)
 
-    }, [setThingsInTheWayGrouped, setIsLoading])
+    }, [setResponsesGrouped, setIsGrouping])
 
 
 
@@ -71,39 +78,45 @@ export const Results = () => {
             padding: 0 20px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             overflow: auto;
             max-height: calc(100vh - 96px);
         `}>
             <h2>
-                As software engineers / developers, what things get in the way of us doing our jobs?
+                {question.value}
             </h2>
 
-            <div>
-                {thingsInTheWay?.length > 0 && thingsInTheWay.map((thing, key) =>
+            <div className={css`
+                text-align: center;
+            `}>
+                {responses?.length > 0 && responses.map((thing, key) =>
                     <div key={key}
                         className={css`
-                    border: 1px solid #ffffff22;
-                    background-color: #365ec555;
-                    display:inline-block;
-                    margin: 5px;
-                    padding: 10px;
-                    border-radius: 10px;
-                `}>
+                            border: 1px solid #ffffff22;
+                            background-color: #365ec555;
+                            display:inline-block;
+                            margin: 5px;
+                            padding: 10px;
+                            border-radius: 10px;
+                        `}>
                         <h3 className={css`
-                        margin: 0;
-                    `}>
+                            margin: 0;
+                        `}>
                             {thing}
                         </h3>
                     </div>
                 )}
             </div>
 
-            <button onClick={async () => await getThingsInTheWay()}>
-                Refresh
-            </button>
+            <div>
+                <button onClick={async () => await getResponses()}>
+                    Refresh
+                </button>
+            </div>
 
             <div>
-                {thingsInTheWayGrouped?.length > 0 && thingsInTheWayGrouped.map((thing, key) =>
+                {responsesGrouped?.length > 0 && responsesGrouped.map((thing, key) =>
                     <div key={key}
                         className={css`
                             border: 1px solid #ffffff22;
@@ -140,10 +153,11 @@ export const Results = () => {
                 {isLoading && "Loading..."}
             </div>
 
-            <button onClick={async () => await getThingsInTheWayGrouped()}>
-                Group with AI
-            </button>
-
+            <div>
+                <button onClick={async () => await getResponsesGrouped()}>
+                    Group with AI
+                </button>
+            </div>
 
         </div>
     )

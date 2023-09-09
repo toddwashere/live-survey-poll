@@ -1,7 +1,8 @@
-import { Results } from "@/app/survey/Results"
-import { css } from "@emotion/css"
-import PresenterSideBar from "./PresenterSideBar"
 import { useState } from "react"
+import { css } from "@emotion/css"
+import { Results } from "@/app/survey/Results"
+import { surveyQuestions } from "@/app/survey/Questions"
+import PresenterSideBar from "./PresenterSideBar"
 
 
 const PresenterPage = () => {
@@ -24,6 +25,7 @@ const PresenterPage = () => {
         margin: 0px;
         padding: 0px;
         background-color: #000000;
+        font-family: Arial, Helvetica, sans-serif;
       }
     `}</style>
 
@@ -38,22 +40,26 @@ const PresenterPage = () => {
         ></iframe>
       </div>
 
-      {currentView === "results1" &&
+      {(currentView === "results1" || currentView === "results2") &&
         <div className={css`
-        border: 1px solid green;
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        right: 16%;
-        bottom: 20px;
-        background-color: #000000f9;
-        -webkit-box-shadow: 0px 0px 25px 10px #FFFFFF; 
-        box-shadow: 0px 0px 25px 10px #FFFFFF;
-        transition: all 0.5s ease-in-out;
-        border-radius: 25px;
-        background-color: #333443;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 16%;
+          bottom: 45px;
+          background-color: #000000f9;
+          background-color: #000;
         `}>
-          <Results />
+          {currentView === "results1" &&
+            <Results
+              question={surveyQuestions[0]}
+            />
+          }
+          {currentView === "results2" &&
+            <Results
+              question={surveyQuestions[1]}
+            />
+          }
         </div>
       }
 
