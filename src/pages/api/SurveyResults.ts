@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as openAi from "./OpenAiProvider"
-import { SurveyQuestionId } from "@/app/survey/Questions";
+import { SurveyQuestionType } from "@/app/survey/Questions";
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -13,22 +13,22 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 const processGet = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const questionId = req.query.q
-    const results = await GetSurveyResultsData(questionId as SurveyQuestionId)
+    const results = await GetSurveyResultsData(questionId as SurveyQuestionType)
     if (!results) {
         return res.status(400).json([])
     }
     return res.status(200).json(results.map(r => r.name))
 }
 
-export const GetSurveyResultsData = async (questionId: SurveyQuestionId) => {
+export const GetSurveyResultsData = async (questionId: SurveyQuestionType) => {
     const client = new PrismaClient()
     let results
-    if (questionId === SurveyQuestionId.thingsInTheWay) {
+    if (questionId === SurveyQuestionType.thingsInTheWay) {
         results = await client.thingsInTheWay.findMany({
             orderBy: { createdAt: "asc" },
         })
     }
-    else if (questionId === SurveyQuestionId.thingsThatHelp) {
+    else if (questionId === SurveyQuestionType.thingsThatHelp) {
         results = await client.thingsThatHelp.findMany({
             orderBy: { createdAt: "asc" },
         })

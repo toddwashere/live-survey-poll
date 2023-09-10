@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as openAi from "./OpenAiProvider"
 import { GetSurveyResultsData } from "./SurveyResults";
-import { SurveyQuestionId, surveyQuestions } from "@/app/survey/Questions";
+import { SurveyQuestionType, surveyQuestions } from "@/app/survey/Questions";
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -14,13 +13,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 const processGet = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const questionId = req.query.q
-    const results = await GetSurveyResultsData(questionId as SurveyQuestionId)
+    const results = await GetSurveyResultsData(questionId as SurveyQuestionType)
     if (!results) {
         return res.status(400).json([])
     }
 
     // const moderatedPhrases = await openAi.removeInappropriatePhrases(results.map(r => r.name))
-    const questionAsked = questionId === SurveyQuestionId.thingsInTheWay ? surveyQuestions[0].value : surveyQuestions[1].value
+    const questionAsked = questionId === SurveyQuestionType.thingsInTheWay ? surveyQuestions[0].value : surveyQuestions[1].value
     const summary = await openAi.groupSimilarPhrases(questionAsked, results.map(r => r.name))
 
     console.log("THE RAW SUMMARY = ", summary)

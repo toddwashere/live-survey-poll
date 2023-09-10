@@ -1,19 +1,19 @@
 
-export enum SurveyQuestionId {
+export enum SurveyQuestionType {
    thingsInTheWay = "thingsInTheWay",
    thingsThatHelp = "thingsThatHelp",
 }
 export type SurveyQuestion = {
-   id: SurveyQuestionId
+   type: SurveyQuestionType
    value: string
 }
 export const surveyQuestions: SurveyQuestion[] = [
    {
-      id: SurveyQuestionId.thingsInTheWay,
+      type: SurveyQuestionType.thingsInTheWay,
       value: "What things make your job less enjoyable?"
    },
    {
-      id: SurveyQuestionId.thingsThatHelp,
+      type: SurveyQuestionType.thingsThatHelp,
       value: "What things have helped improve your experience at work?"
    },
 ]

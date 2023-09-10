@@ -34,7 +34,7 @@ export const Results = ({
         setIsLoading(true)
         try {
 
-            const response = await fetch(`/api/SurveyResults?q=${question.id}`, {
+            const response = await fetch(`/api/SurveyResults?q=${question.type}`, {
                 method: "GET"
             })
 
@@ -54,7 +54,7 @@ export const Results = ({
         setIsGrouping(true)
         try {
 
-            const response = await fetch(`/api/SurveyResultsGrouped?q=${question.id}`, {
+            const response = await fetch(`/api/SurveyResultsGrouped?q=${question.type}`, {
                 method: "GET"
             })
 
