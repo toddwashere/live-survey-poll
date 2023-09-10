@@ -4,7 +4,7 @@ import { useKeyDownHandler } from "./useKeyDownHandler"
 import { SurveyQuestion } from "./Questions"
 import { IAnswer } from "./Answers"
 import { css } from "@emotion/css"
-import { InputText } from "../copmonents/InputText"
+import { InputTextWithButton } from "../copmonents/InputTextWithButton"
 
 
 type Props = {
@@ -25,39 +25,60 @@ export const SurveyFormQuestion = ({
 
     const [answers, setAnswers] = useState<IAnswer[]>([])
     const [pendingAnswerToAdd, setPendingAnswerToAdd] = useState<string>("")
-    console.log("thingsInTheWay", answers)
-    useKeyDownHandler(async (event) => {
-        if (event.key === "Enter") {
-            await addThing()
-        }
-    })
+    console.log("answers", answers)
 
-    const addThing = useCallback(async () => {
 
-        setPendingAnswerToAdd("")
+    const [isSavingNew, setIsSavingNew] = useState<boolean>(false)
+    const addThing = useCallback(async (valueToAdd: string) => {
+        console.log("now calling addThing() valueToAdd = ", valueToAdd)
 
-        console.log("now calling")
+        setIsSavingNew(true)
 
         const response = await fetch(`/api/Survey?q=${question.type}`, {
             method: "POST",
             body: JSON.stringify({
-                name: pendingAnswerToAdd
+                name: valueToAdd
             })
         })
 
         const answerWithId = await response.json() as IAnswer
         console.log("answerWithId = ", answerWithId)
 
-        setAnswers([...answers, answerWithId])
-        localStorage.setItem(question.type, JSON.stringify(answers))
+        setAnswers(prev => {
+            const updated = [...prev, answerWithId]
+            localStorage.setItem(question.type, JSON.stringify(updated))
+            return updated
+        })
+        setIsSavingNew(false)
+        setPendingAnswerToAdd("")
 
-    }, [answers, pendingAnswerToAdd])
+    }, [answers, setPendingAnswerToAdd, setIsSavingNew])
 
 
     const updateThing = useCallback(async (thing: IAnswer) => {
         console.log("UpdateThing() ", { thing })
-        const response = await fetch(`/api/Survey?q=${question.type}`, {
+        setAnswers(prev => {
+            const index = prev.findIndex(x => x.id === thing.id)
+            const updated = [...prev]
+            updated[index] = thing
+            localStorage.setItem(question.type, JSON.stringify(updated))
+            return updated
+        })
+        await fetch(`/api/Survey?q=${question.type}`, {
             method: "PUT",
+            body: JSON.stringify(thing)
+        })
+    }, [answers])
+
+    const removeThing = useCallback(async (thing: IAnswer) => {
+        console.log("RemoveThing() ", { thing })
+        setAnswers(prev => {
+            const updated = prev.filter(x => x.id !== thing.id)
+            localStorage.setItem(question.type, JSON.stringify(updated))
+            return updated
+        })
+        await fetch(`/api/Survey?q=${question.type}`, {
+            method: "DELETE",
             body: JSON.stringify(thing)
         })
     }, [answers])
@@ -71,11 +92,8 @@ export const SurveyFormQuestion = ({
             </h2>
 
             {answers.map((thing, key) =>
-                <div key={key}
-                    className={css`
-                    padding: 5px;
-                `}>
-                    <InputText
+                <div key={key}>
+                    <InputTextWithButton
                         value={thing.name}
                         onValueUpdated={(newValue: string) => {
                             const updates = {
@@ -84,27 +102,46 @@ export const SurveyFormQuestion = ({
                             }
                             updateThing(updates)
                         }}
+                        buttonAction="remove"
+                        onButtonClick={() => removeThing(thing)}
+                        buttonIsDisabled={false}
                     />
+
                 </div>
             )}
 
-            <InputText
-                value={pendingAnswerToAdd}
-                onValueUpdated={setPendingAnswerToAdd}
-            />
-            <input
-                type="text"
-                value={pendingAnswerToAdd}
-                placeholder="Type here ..."
-                onChange={(e) => setPendingAnswerToAdd(e.target.value)}
-            />
-            <button
-                onClick={addThing}>
-                Add
-            </button>
+            <div>
+                {isSavingNew &&
+                    <div className={css`
+                        padding: 10px;
+                        font-style: italic;
+                        font-size: small;
+                    `}>
+                        <span>
+                            {pendingAnswerToAdd}
+                        </span>
+                        <span className={css`
+                            margin-left: 3px;
+                        `}>
+                            ...
+                        </span>
+                    </div>
+                }
+                {!isSavingNew &&
+                    <InputTextWithButton
+                        value={pendingAnswerToAdd}
+                        placeholder="Type here to add ..."
+                        onValueUpdated={setPendingAnswerToAdd}
+                        buttonAction="add"
+                        buttonIsDisabled={pendingAnswerToAdd.length === 0 || isSavingNew}
+                        onButtonClick={async (value: string) => await addThing(value)}
+                    />
+                }
+
+
+            </div>
 
 
         </div>
     )
 }
-

@@ -48,7 +48,7 @@ const PresenterPage = () => {
           right: 16%;
           bottom: 45px;
           background-color: #000000f9;
-          background-color: #000;
+          background-color: #1c4587;
         `}>
           {currentView === "results1" &&
             <Results

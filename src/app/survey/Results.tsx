@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { css } from "@emotion/css"
 import { SurveyQuestion } from "./Questions"
+import { Button } from "../copmonents/Button"
 
 
 type GroupedEntry = {
@@ -110,9 +111,9 @@ export const Results = ({
             </div>
 
             <div>
-                <button onClick={async () => await getResponses()}>
+                <Button onClick={async () => await getResponses()}>
                     Refresh
-                </button>
+                </Button>
             </div>
 
             <div>
@@ -154,9 +155,11 @@ export const Results = ({
             </div>
 
             <div>
-                <button onClick={async () => await getResponsesGrouped()}>
+
+                <Button
+                    onClick={async () => await getResponsesGrouped()}>
                     Group with AI
-                </button>
+                </Button>
             </div>
 
         </div>
