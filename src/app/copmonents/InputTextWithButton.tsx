@@ -89,7 +89,7 @@ export const InputTextWithButton = ({
                   onClick={() => onButtonClick(internalValue)}
                   isDisabled={buttonIsDisabled}
                >
-                  +
+                  -
                </Button>
             }
          </div>

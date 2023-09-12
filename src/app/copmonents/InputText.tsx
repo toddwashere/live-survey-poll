@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react"
+import TextareaAutosize from 'react-textarea-autosize'
 import { useThrottle } from "../hooks/useThrottle"
 import { css } from "@emotion/css"
 
@@ -25,7 +26,7 @@ export const InputText = ({
 
 
    return (
-      <textarea
+      <TextareaAutosize
          className={css`
             color: #fff;
             border: 1px solid transparent;
