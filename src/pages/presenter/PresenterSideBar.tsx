@@ -14,26 +14,26 @@ const PresenterSideBar = ({
 
     return (
         <div className={css`
-        width: calc(15% - 8px );
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
+            width: calc(15% - 8px );
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
       `}>
             <div className={css`
-          padding: 10px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 100%;
-        `}>
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            `}>
                 <h1>
                     Live Poll
                 </h1>
                 <div className={css`
-          font-size: 2em;
-          padding-bottom: 20px;
-        `}>
+                    font-size: 2em;
+                    padding-bottom: 20px;
+                `}>
                     utahjs.vercel.app
                 </div>
                 <div className={css`
@@ -70,8 +70,7 @@ const PresenterSideBar = ({
                 `}>
 
                     <div className={css`
-                        width: 200px;
-                        opacity: 0.5;
+                        width: 100px;
                     `}>
                         <img src="/images/utahjs_400x400.png"
                             className={css`

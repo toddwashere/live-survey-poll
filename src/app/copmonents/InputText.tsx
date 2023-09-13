@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import TextareaAutosize from 'react-textarea-autosize'
 import { useThrottle } from "../hooks/useThrottle"
 import { css } from "@emotion/css"
@@ -18,6 +18,9 @@ export const InputText = ({
 
 
    const [internalValue, setInternalValue] = useState(value)
+   useEffect(() => {
+      setInternalValue(value)
+   }, [value])
 
    const updateValue = useCallback((newValue: string) => {
       setInternalValue(newValue)

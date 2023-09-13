@@ -43,7 +43,7 @@ export const Results = ({
             const entries = JSON.parse(rawEntries) as string[]
             console.log("entries", { entries })
 
-            setResponses(entries)
+            setResponses(entries.filter(v => v.length > 0))
         } catch (e) {
             console.error("error = ", e)
         }
@@ -89,11 +89,14 @@ export const Results = ({
             </h2>
 
             <div className={css`
-                text-align: center;
+                overflow-y: scroll;
             `}>
-                {responses?.length > 0 && responses.map((thing, key) =>
-                    <div key={key}
-                        className={css`
+                <div className={css`
+                    text-align: center;
+                `}>
+                    {responses?.length > 0 && responses.map((thing, key) =>
+                        <div key={key}
+                            className={css`
                             border: 1px solid #ffffff22;
                             background-color: #365ec555;
                             display:inline-block;
@@ -101,25 +104,25 @@ export const Results = ({
                             padding: 10px;
                             border-radius: 10px;
                         `}>
-                        <h3 className={css`
+                            <h3 className={css`
                             margin: 0;
                         `}>
-                            {thing}
-                        </h3>
-                    </div>
-                )}
-            </div>
+                                {thing}
+                            </h3>
+                        </div>
+                    )}
+                </div>
 
-            <div>
-                <Button onClick={async () => await getResponses()}>
-                    Refresh
-                </Button>
-            </div>
+                <div>
+                    <Button onClick={async () => await getResponses()}>
+                        Refresh
+                    </Button>
+                </div>
 
-            <div>
-                {responsesGrouped?.length > 0 && responsesGrouped.map((thing, key) =>
-                    <div key={key}
-                        className={css`
+                <div>
+                    {responsesGrouped?.length > 0 && responsesGrouped.map((thing, key) =>
+                        <div key={key}
+                            className={css`
                             border: 1px solid #ffffff22;
                             background-color: #365ec555;
                             display:inline-block;
@@ -127,39 +130,44 @@ export const Results = ({
                             padding: 10px;
                             border-radius: 10px;
                     `}>
-                        <h2 className={css`
+                            <h2 className={css`
                         margin: 0;
                     `}>
-                            {thing.k}
-                        </h2>
-                        <p>
-                            {thing.v.map((v, key) =>
-                                <span key={key}
-                                    className={css`
+                                {thing.k}
+                            </h2>
+                            <p>
+                                {thing.v.map((v, key) =>
+                                    <span key={key}
+                                        className={css`
                                 margin-right: 10px;
                                 &:after {
                                     content: ", ";
                                 }
                             `}
-                                >
-                                    {v}
-                                </span>
-                            )}
-                        </p>
-                    </div>
-                )}
-            </div>
+                                    >
+                                        {v}
+                                    </span>
+                                )}
+                            </p>
+                        </div>
+                    )}
+                </div>
 
-            <div>
-                {isLoading && "Loading..."}
-            </div>
+                <div>
+                    {isLoading && "Loading..."}
+                </div>
 
-            <div>
+                <div>
+                    {isGrouping && "Grouping..."}
 
-                <Button
-                    onClick={async () => await getResponsesGrouped()}>
-                    Group with AI
-                </Button>
+                    {!isGrouping &&
+                        <Button
+                            onClick={async () => await getResponsesGrouped()}>
+                            Group with AI
+
+                        </Button>
+                    }
+                </div>
             </div>
 
         </div>

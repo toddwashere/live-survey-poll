@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useThrottle } from "../hooks/useThrottle"
 import { css } from "@emotion/css"
 import { useKeyDownHandlerOnFocus } from "../hooks/useKeyDownHandlerOnFocus"
@@ -26,6 +26,9 @@ export const InputTextWithButton = ({
 
 
    const [internalValue, setInternalValue] = useState(value)
+   useEffect(() => {
+      setInternalValue(value)
+   }, [value])
 
    const updateValue = useCallback((newValue: string) => {
       setInternalValue(newValue)
