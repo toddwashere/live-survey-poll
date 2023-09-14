@@ -12,6 +12,8 @@ export const SurveyForm = () => {
             display: flex;
             flex-direction: column;
             gap: 30px;
+            width: 100%;
+            max-width: 400px;
         `}>
             <div className={css`
                 display: flex;

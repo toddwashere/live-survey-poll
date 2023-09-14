@@ -87,7 +87,9 @@ export const SurveyFormQuestion = ({
     return (
         <div>
 
-            <h2>
+            <h2 className={css`
+                font-size: 1em;
+            `}>
                 {question.value}
             </h2>
 

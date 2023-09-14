@@ -10,7 +10,7 @@ export type SurveyQuestion = {
 export const surveyQuestions: SurveyQuestion[] = [
    {
       type: SurveyQuestionType.thingsInTheWay,
-      value: "What things make your job less enjoyable?"
+      value: "What things can make your job less enjoyable?"
    },
    {
       type: SurveyQuestionType.thingsThatHelp,
