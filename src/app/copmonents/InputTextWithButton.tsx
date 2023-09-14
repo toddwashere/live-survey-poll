@@ -59,6 +59,7 @@ export const InputTextWithButton = ({
          gap: 10px;
          border: 1px solid transparent;
          border-radius: 10px;
+         cursor: pointer;
          &:focus-within {
             border-color: #444;
             background-color: #222;
