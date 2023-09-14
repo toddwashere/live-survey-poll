@@ -83,22 +83,9 @@ export const SurveyFormQuestion = ({
         })
     }, [answers])
 
-    const [dumbMobileValue, setDumbMobileValue] = useState<string>("")
-
 
     return (
         <div>
-
-            <h3>Dumb mobile test</h3>
-            <InputTextWithButton
-                value={dumbMobileValue}
-                onValueUpdated={(newValue: string) => {
-                    setDumbMobileValue(newValue)
-                }}
-                buttonAction="remove"
-                onButtonClick={() => setDumbMobileValue("clicked")}
-                buttonIsDisabled={false}
-            />
 
             <h2 className={css`
                 font-size: 1em;
