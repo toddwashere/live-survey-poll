@@ -43,7 +43,7 @@ export const Results = ({
             const entries = JSON.parse(rawEntries) as string[]
             console.log("entries", { entries })
 
-            setResponses(entries.filter(v => v.length > 0))
+            setResponses(entries.filter(v => v.length > 1))
         } catch (e) {
             console.error("error = ", e)
         }

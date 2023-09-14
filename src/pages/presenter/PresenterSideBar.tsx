@@ -58,32 +58,31 @@ const PresenterSideBar = ({
 
             </div>
 
-            <div className={css`
-                width: 100%;
-            `}>
 
-                {/* Home tab */}
-                <div className={css`
+
+
+
+            <div className={css`
                     width: 100%;
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                `}>
+                <div className={css`
+                    width: 100px;
                     display: flex;
                     justify-content: center;
+                    margin-bottom: 100px;
                 `}>
-
-                    <div className={css`
-                        width: 100px;
-                    `}>
-                        <img src="/images/utahjs_400x400.png"
-                            className={css`
-                                width: 100%;
-                            `} />
-                    </div>
-
+                    <img src="/images/utahjs_400x400.png"
+                        className={css`
+                            width: 100%;
+                        `} />
                 </div>
 
-            </div>
-            {/* Bottom Footer */}
-
-            <div className={css`
+                {/* Bottom Footer */}
+                <div className={css`
                 height: 36px;
                 width: calc(100% - 10px);
                 background-color: rgba(241, 243, 244, 0.949);
@@ -99,26 +98,27 @@ const PresenterSideBar = ({
                     border-radius: 2px;
                 }
             `}>
-                <Clock />
-                <button
-                    onClick={() => setCurrentView("presentation")}
-                >
-                    Home
-                </button>
+                    <Clock />
+                    <button
+                        onClick={() => setCurrentView("presentation")}
+                    >
+                        Home
+                    </button>
 
-                <button
-                    onClick={() => setCurrentView("results1")}
-                >
-                    Q1
-                </button>
+                    <button
+                        onClick={() => setCurrentView("results1")}
+                    >
+                        Q1
+                    </button>
 
-                <button
-                    onClick={() => setCurrentView("results2")}
-                >
-                    Q2
-                </button>
+                    <button
+                        onClick={() => setCurrentView("results2")}
+                    >
+                        Q2
+                    </button>
 
 
+                </div>
             </div>
         </div>
     )

@@ -25,8 +25,8 @@ export const Button = (props: Props) => {
             }
          default:
             return {
-               backgroundColor: "#222",
-               color: "#fff",
+               backgroundColor: "#00000033",
+               color: "#ffffff66",
             }
       }
    }, [intent])
