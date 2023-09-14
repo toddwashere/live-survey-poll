@@ -64,11 +64,11 @@ export const InputTextWithButton = ({
             border-color: #444;
             background-color: #222;
             & button {
-               visibility: visible;
+               opacity: 1;
             }
          }
          & button {
-            visibility: hidden;
+            opacity: 0.01;
          }
       `}
       >
