@@ -6,11 +6,17 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    if (req.method === "PUT") {
-        return processPut(req, res)
+    switch (req.method) {
+        case "POST":
+            return processPost(req, res)
+        case "PUT":
+            return processPut(req, res)
+        case "DELETE":
+            return processDelete(req, res)
+        default:
+            return res.status(404).send("Not Found")
     }
 
-    return processPost(req, res)
 }
 
 
@@ -71,4 +77,33 @@ const processPut = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     return res.status(200).json(results)
+}
+
+const processDelete = async (req: NextApiRequest, res: NextApiResponse) => {
+
+    const data = JSON.parse(req.body)
+    console.log("THE POSTED DATA = ", data)
+    const questionId = req.query.q
+    console.log("THE QUESTION ID = ", questionId)
+    const client = new PrismaClient()
+
+    let results
+    if (questionId === SurveyQuestionType.AiProductUseCases) {
+        results = await client.aiProductUseCases.delete({
+            where: { id: data.id },
+        })
+    } else if (questionId === SurveyQuestionType.thingsInTheWay) {
+        results = await client.thingsInTheWay.delete({
+            where: { id: data.id },
+        })
+    } else if (questionId === SurveyQuestionType.thingsThatHelp) {
+        results = await client.thingsThatHelp.delete({
+            where: { id: data.id },
+        })
+    } else {
+        throw new Error("Unknown questionId: " + questionId)
+    }
+
+    return res.status(200).json(results)
+
 }
