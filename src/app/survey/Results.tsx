@@ -11,6 +11,11 @@ type GroupedEntry = {
     v: string[],
 }
 
+type EntrySummary = {
+    name: string,
+    count: number,
+}
+
 type Props = {
     question: SurveyQuestion
 }
@@ -20,7 +25,7 @@ export const Results = ({
 }: Props) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [responses, setResponses] = useState<string[]>([])
+    const [responses, setResponses] = useState<EntrySummary[]>([])
     const [isGrouping, setIsGrouping] = useState<boolean>(false)
     const [responsesGrouped, setResponsesGrouped] = useState<GroupedEntry[]>([])
 
@@ -43,7 +48,19 @@ export const Results = ({
             const entries = JSON.parse(rawEntries) as string[]
             console.log("entries", { entries })
 
-            setResponses(entries.filter(v => v.length > 1))
+            // group duplicates
+            const mappedByCount = new Map<string, number>()
+            const notEmpty = entries.filter(v => v.length > 1)
+            notEmpty.forEach(v => {
+                const count = mappedByCount.get(v) || 0
+                mappedByCount.set(v, count + 1)
+            })
+            const summarized: EntrySummary[] = []
+            mappedByCount.forEach((v, k) => {
+                summarized.push({ name: k, count: v })
+            })
+            const thing = mappedByCount.entries()
+            setResponses(summarized)
         } catch (e) {
             console.error("error = ", e)
         }
@@ -95,7 +112,7 @@ export const Results = ({
                 <div className={css`
                     text-align: center;
                 `}>
-                    {responses?.length > 0 && responses.map((thing, key) =>
+                    {responses?.length > 0 && responses.map((entry, key) =>
                         <div key={key}
                             className={css`
                             border: 1px solid #ffffff22;
@@ -108,7 +125,8 @@ export const Results = ({
                             <h3 className={css`
                             margin: 0;
                         `}>
-                                {thing}
+                                {entry.name}
+                                {entry.count > 1 && ` (${entry.count})`}
                             </h3>
                         </div>
                     )}
