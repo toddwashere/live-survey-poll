@@ -1,4 +1,4 @@
-import { Clock } from "@/app/copmonents/Clock";
+import { Clock } from "@/app/components/Clock";
 import { css } from "@emotion/css";
 
 

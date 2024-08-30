@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { css } from "@emotion/css"
 import { SurveyQuestion } from "./Questions"
-import { Button } from "../copmonents/Button"
+import { Button } from "../components/Button"
 
 
 type GroupedEntry = {

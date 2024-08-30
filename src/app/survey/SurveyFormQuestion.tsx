@@ -1,10 +1,9 @@
 "use client"
 import { useCallback, useEffect, useState } from "react"
-import { useKeyDownHandler } from "./useKeyDownHandler"
 import { SurveyQuestion } from "./Questions"
 import { IAnswer } from "./Answers"
 import { css } from "@emotion/css"
-import { InputTextWithButton } from "../copmonents/InputTextWithButton"
+import { InputTextWithButton } from "../components/InputTextWithButton"
 
 
 type Props = {
