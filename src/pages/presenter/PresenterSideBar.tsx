@@ -1,10 +1,11 @@
 import { Clock } from "@/app/components/Clock";
 import { css } from "@emotion/css";
 
+export type ViewType = "presentation" | "results1" | "results2"
 
 type Props = {
-    currentView: "presentation" | "results1" | "results2"
-    setCurrentView: (view: "presentation" | "results1" | "results2") => void
+    currentView: ViewType
+    setCurrentView: (view: ViewType) => void
 }
 const PresenterSideBar = ({
     currentView,

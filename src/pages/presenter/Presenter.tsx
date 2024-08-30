@@ -2,13 +2,13 @@ import { useState } from "react"
 import { css } from "@emotion/css"
 import { Results } from "@/app/survey/Results"
 import { surveyQuestions } from "@/app/survey/Questions"
-import PresenterSideBar from "./PresenterSideBar"
+import PresenterSideBar, { ViewType } from "./PresenterSideBar"
 
 
 const PresenterPage = () => {
 
 
-  const [currentView, setCurrentView] = useState<"presentation" | "results1" | "results2">("presentation")
+  const [currentView, setCurrentView] = useState<ViewType>("presentation")
 
 
   return (
