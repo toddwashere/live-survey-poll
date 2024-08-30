@@ -51,15 +51,27 @@ const PresenterPage = () => {
           background-color: #000000f9;
           background-color: #1c4587;
         `}>
-          {currentView === "results1" &&
+          {currentView === "results1" && surveyQuestions.length > 0 &&
             <Results
               question={surveyQuestions[0]}
             />
           }
-          {currentView === "results2" &&
+          {currentView === "results2" && surveyQuestions.length > 1 &&
             <Results
               question={surveyQuestions[1]}
             />
+          }
+          {surveyQuestions.length === 0 &&
+            <div className={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+            `}>
+              <h1>
+                No questions have been Configured yet
+              </h1>
+            </div>
           }
         </div>
       }
