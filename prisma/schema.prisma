@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,6 +17,12 @@ model ThingsInTheWay {
 }
 
 model ThingsThatHelp {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model AiProductUseCases {
   id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())

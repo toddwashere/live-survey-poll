@@ -23,7 +23,11 @@ const processGet = async (req: NextApiRequest, res: NextApiResponse) => {
 export const GetSurveyResultsData = async (questionId: SurveyQuestionType) => {
     const client = new PrismaClient()
     let results
-    if (questionId === SurveyQuestionType.thingsInTheWay) {
+    if (questionId === SurveyQuestionType.AiProductUseCases) {
+        results = await client.aiProductUseCases.findMany({
+            orderBy: { createdAt: "asc" },
+        })
+    } else if (questionId === SurveyQuestionType.thingsInTheWay) {
         results = await client.thingsInTheWay.findMany({
             orderBy: { createdAt: "asc" },
         })

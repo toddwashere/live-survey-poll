@@ -15,9 +15,9 @@ export const SurveyFormQuestion = ({
 }: Props) => {
 
     useEffect(() => {
-        const rawThingsInTheWay = localStorage.getItem(question.type)
-        if (rawThingsInTheWay) {
-            const answers: IAnswer[] = JSON.parse(rawThingsInTheWay) as IAnswer[]
+        const rawAnswers = localStorage.getItem(question.type)
+        if (rawAnswers) {
+            const answers: IAnswer[] = JSON.parse(rawAnswers) as IAnswer[]
             setAnswers(answers)
         }
     }, [])

@@ -23,7 +23,11 @@ const processPost = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = new PrismaClient()
 
     let results
-    if (questionId === SurveyQuestionType.thingsInTheWay) {
+    if (questionId === SurveyQuestionType.AiProductUseCases) {
+        results = await client.aiProductUseCases.create({
+            data: { name: data.name, },
+        })
+    } else if (questionId === SurveyQuestionType.thingsInTheWay) {
         results = await client.thingsInTheWay.create({
             data: { name: data.name, },
         })
@@ -47,7 +51,12 @@ const processPut = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = new PrismaClient()
 
     let results
-    if (questionId === SurveyQuestionType.thingsInTheWay) {
+    if (questionId === SurveyQuestionType.AiProductUseCases) {
+        results = await client.aiProductUseCases.update({
+            where: { id: data.id },
+            data: { name: data.name, },
+        })
+    } else if (questionId === SurveyQuestionType.thingsInTheWay) {
         results = await client.thingsInTheWay.update({
             where: { id: data.id },
             data: { name: data.name, },

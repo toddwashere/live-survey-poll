@@ -90,6 +90,7 @@ export const Results = ({
 
             <div className={css`
                 overflow-y: scroll;
+                width: 100%;
             `}>
                 <div className={css`
                     text-align: center;
@@ -98,7 +99,7 @@ export const Results = ({
                         <div key={key}
                             className={css`
                             border: 1px solid #ffffff22;
-                            background-color: #365ec555;
+                            background-color: #365ec533;
                             display:inline-block;
                             margin: 5px;
                             padding: 10px;
