@@ -32,7 +32,7 @@ const PresenterSideBar = ({
                     Live Poll
                 </h1>
                 <div className={css`
-                    font-size: 2em;
+                    font-size: 1.7em;
                     padding-bottom: 20px;
                 `}>
                     utahjs.vercel.app

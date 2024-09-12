@@ -91,6 +91,15 @@ export const SurveyFormQuestion = ({
             `}>
                 {question.value}
             </h2>
+            {question.description &&
+                <div className={css`
+                    font-size: 1em;
+                    padding: 5px;
+                    font-weight: 300;
+                `}>
+                    {question.description}
+                </div>
+            }
 
             {answers.map((thing, key) =>
                 <div key={key}>
