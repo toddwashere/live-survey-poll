@@ -56,6 +56,15 @@ const PresenterSideBar = ({
                     />
                 </div>
 
+                <div className={css`
+                    margin-top: 20px;
+                    text-align: center;
+                    opacity: 0.8;
+                `}>⬆<br />
+                    Includes a GitHub link <br />
+                    to the code examples
+                </div>
+
 
             </div>
 
