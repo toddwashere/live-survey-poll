@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { css } from "@emotion/css"
 import { Results } from "@/app/survey/Results"
-import PresenterSideBar, { ViewType } from "./PresenterSideBar"
+import PresenterSideBar, { ViewType } from "@/app/components/PresenterSideBar"
 import { currentPresentationConfig } from "../../presentation-config"
 
 

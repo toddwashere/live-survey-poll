@@ -1,7 +1,7 @@
 # Prep for giving a presenation.
 
 1. in `presentations-config.ts`, add a new entry for your presentation.
-2. Set your new presentation config as the default.
+2. At the bottom of that file set your new presentation config as the default.
 3. Push to github to trigger a deploy.
 
 # Tips
