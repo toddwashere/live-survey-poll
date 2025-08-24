@@ -4,6 +4,7 @@ import { SurveyQuestion } from "./Questions"
 import { IAnswer } from "./Answers"
 import { css } from "@emotion/css"
 import { InputTextWithButton } from "../components/InputTextWithButton"
+import { currentPresentationConfig } from "@/presentation-config"
 
 
 type Props = {
@@ -13,8 +14,10 @@ export const SurveyFormQuestion = ({
     question,
 }: Props) => {
 
+    const key = `${currentPresentationConfig.presentationId}-${question.type}`
+
     useEffect(() => {
-        const rawAnswers = localStorage.getItem(question.type)
+        const rawAnswers = localStorage.getItem(key)
         if (rawAnswers) {
             const answers: IAnswer[] = JSON.parse(rawAnswers) as IAnswer[]
             setAnswers(answers)
@@ -45,7 +48,7 @@ export const SurveyFormQuestion = ({
 
         setAnswers(prev => {
             const updated = [...prev, answerWithId]
-            localStorage.setItem(question.type, JSON.stringify(updated))
+            localStorage.setItem(key, JSON.stringify(updated))
             return updated
         })
         setIsSavingNew(false)
@@ -60,7 +63,7 @@ export const SurveyFormQuestion = ({
             const index = prev.findIndex(x => x.id === thing.id)
             const updated = [...prev]
             updated[index] = thing
-            localStorage.setItem(question.type, JSON.stringify(updated))
+            localStorage.setItem(key, JSON.stringify(updated))
             return updated
         })
         await fetch(`/api/Survey?q=${question.type}`, {
@@ -73,7 +76,7 @@ export const SurveyFormQuestion = ({
         console.log("RemoveThing() ", { thing })
         setAnswers(prev => {
             const updated = prev.filter(x => x.id !== thing.id)
-            localStorage.setItem(question.type, JSON.stringify(updated))
+            localStorage.setItem(key, JSON.stringify(updated))
             return updated
         })
         await fetch(`/api/Survey?q=${question.type}`, {
