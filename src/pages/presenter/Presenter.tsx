@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { css } from "@emotion/css"
 import { Results } from "@/app/survey/Results"
-import { surveyQuestions } from "@/app/survey/Questions"
 import PresenterSideBar, { ViewType } from "./PresenterSideBar"
+import { currentPresentationConfig } from "../../presentation-config"
 
 
 const PresenterPage = () => {
@@ -10,6 +10,9 @@ const PresenterPage = () => {
 
   const [currentView, setCurrentView] = useState<ViewType>("presentation")
 
+  // in the future can use a query param to load a different presentation
+  const presentationConfig = currentPresentationConfig
+  const surveyQuestions = presentationConfig.questions
 
   return (
     <div className={css`
@@ -33,7 +36,7 @@ const PresenterPage = () => {
         width: 85%;
       `}>
         <iframe
-          src="https://docs.google.com/presentation/d/18xa-r19U5R2-onJ9qKq_DbBPvMr35PT72Gm2t9dttbc/embed"
+          src={presentationConfig.presentationUrl}
           // src="https://docs.google.com/presentation/d/e/2PACX-1vQ2N9E2MvBunjGeX8wnutukSjEZPgSFPFvWZv24YxmOcy4W5AAhoPgQY1h0oioqbHTuL41z5NgeE4fu/embed?start=false&loop=false&delayms=3000"
           width="100%"
           height="100%"
@@ -41,7 +44,7 @@ const PresenterPage = () => {
         ></iframe>
       </div>
 
-      {(currentView === "results1" || currentView === "results2") &&
+      {(currentView === "results1" || currentView === "results2" || currentView === "results3") &&
         <div className={css`
           position: absolute;
           top: 0;
@@ -59,6 +62,11 @@ const PresenterPage = () => {
           {currentView === "results2" && surveyQuestions.length > 1 &&
             <Results
               question={surveyQuestions[1]}
+            />
+          }
+          {currentView === "results3" && surveyQuestions.length > 2 &&
+            <Results
+              question={surveyQuestions[2]}
             />
           }
           {surveyQuestions.length === 0 &&
@@ -80,6 +88,7 @@ const PresenterPage = () => {
       <PresenterSideBar
         currentView={currentView}
         setCurrentView={setCurrentView}
+        presentationConfig={presentationConfig}
       />
 
     </div >

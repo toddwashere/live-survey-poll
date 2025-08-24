@@ -1,20 +1,22 @@
 "use client"
 import { css } from "@emotion/css"
 import Head from 'next/head';
-import { surveyQuestions } from "./Questions"
 import { SurveyFormQuestion } from "./SurveyFormQuestion"
+import { PresentationConfig } from "@/presentation-config";
 
 
-export const SurveyForm = () => {
+export const SurveyForm = ({ presentationConfig }: { presentationConfig: PresentationConfig }) => {
 
 
     return (
         <div className={css`
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 10px;
             width: 100%;
             max-width: 250px;
+            border-bottom: 1px solid #777;
+            padding-bottom: 20px;
         `}>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +30,7 @@ export const SurveyForm = () => {
                 <div className={css`
                     width: 20px;
                 `}>
-                    <img src="/images/utahjs_400x400.png"
+                    <img src={presentationConfig.conferenceLogoUrl}
                         className={css`
                             width: 100%;
                         `} />
@@ -37,7 +39,7 @@ export const SurveyForm = () => {
                     Live Poll
                 </div>
             </div>
-            {surveyQuestions.map((question, key) =>
+            {presentationConfig.questions.map((question, key) =>
                 <SurveyFormQuestion
                     key={key}
                     question={question}

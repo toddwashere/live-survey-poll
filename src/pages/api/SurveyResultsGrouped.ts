@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import * as openAi from "./OpenAiProvider"
 import { GetSurveyResultsData } from "./SurveyResults";
-import { SurveyQuestionType, surveyQuestions } from "@/app/survey/Questions";
+import { SurveyQuestionType } from "@/app/survey/Questions";
+import { currentPresentationConfig } from "../../presentation-config";
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -17,6 +18,8 @@ const processGet = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!results) {
         return res.status(400).json([])
     }
+
+    const surveyQuestions = currentPresentationConfig.questions
 
     // const moderatedPhrases = await openAi.removeInappropriatePhrases(results.map(r => r.name))
     const questionAsked = questionId === SurveyQuestionType.thingsInTheWay ? surveyQuestions[0].value : surveyQuestions[1].value
