@@ -1,7 +1,7 @@
 import { SurveyQuestion, SurveyQuestionType } from "@/app/survey/Questions"
 
 
-type PresentationConfigId = "need-for-speed" | "ai-cookbook-learning" | "make-work-not-suck"
+type PresentationConfigId = "bad-id" | "need-for-speed" | "ai-cookbook-learning" | "make-work-not-suck"
 const defaultPresentationId: PresentationConfigId = "need-for-speed"
 
 export type PresentationConfig = {
@@ -86,4 +86,18 @@ export const presentationConfigs: Map<PresentationConfigId, PresentationConfig> 
 ])
 
 
-export const currentPresentationConfig: PresentationConfig = presentationConfigs.get(defaultPresentationId)!
+/** If this is ever selected, there is a problem with the presentation config */
+const defaultPresentationConfig: PresentationConfig = {
+   presentationId: "bad-id",
+   presentationTitle: "BAD ID",
+   linkedInProfileUrl: "https://www.linkedin.com/in/todd-b-fisher/",
+   linkedInProfileName: "Todd B Fisher",
+   presentationUrl: "https://google.com",
+   qrCodeImageUrl: "/images/qrcode.png",
+   conferenceLogoUrl: "/images/utahjs_400x400.png",
+   siteUrlLabel: "utahjs.vercel.app",
+   questions: [],
+}
+
+/** Statically set at BUILD time */
+export const currentPresentationConfig: PresentationConfig = presentationConfigs.get(defaultPresentationId) || defaultPresentationConfig

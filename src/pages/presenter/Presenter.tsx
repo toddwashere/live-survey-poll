@@ -10,7 +10,6 @@ const PresenterPage = () => {
 
   const [currentView, setCurrentView] = useState<ViewType>("presentation")
 
-  // in the future can use a query param to load a different presentation
   const presentationConfig = currentPresentationConfig
   const surveyQuestions = presentationConfig.questions
 
